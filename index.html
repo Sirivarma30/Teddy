@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teddy Day 🧸</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#ffb6c1,#ffd6e8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Georgia',serif;
+  overflow:hidden;
+}
+.container{
+  width:95%;
+  max-width:420px;
+  text-align:center;
+  color:#fff;
+  position:relative;
+  z-index:2;
+}
+.hidden{display:none;}
+button{
+  padding:12px 26px;
+  border-radius:30px;
+  border:none;
+  font-size:16px;
+  margin:10px;
+  cursor:pointer;
+  background:#d6336c;
+  color:white;
+}
+.back{
+  background:transparent;
+  color:white;
+  font-size:14px;
+}
+
+/* TEDDY */
+.teddy{
+  font-size:90px;
+}
+.heart{
+  font-size:40px;
+}
+
+/* POPUP */
+.popup{
+  background:rgba(255,255,255,0.96);
+  color:#b03060;
+  padding:30px 22px;
+  border-radius:20px;
+  animation:pop 0.6s ease forwards;
+  box-shadow:0 20px 45px rgba(0,0,0,0.35);
+}
+@keyframes pop{
+  from{transform:scale(0.6);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* BOUNCE TEXT */
+.bounce{
+  animation:bounce 1.4s infinite;
+  font-size:26px;
+  font-weight:bold;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.96);
+  color:#b03060;
+  padding:22px;
+  border-radius:18px;
+  font-size:15px;
+  line-height:1.8;
+  box-shadow:0 18px 40px rgba(0,0,0,0.35);
+}
+
+/* HUG ANIMATION */
+.hug{
+  font-size:60px;
+  animation:hug 1.5s infinite;
+}
+@keyframes hug{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.15);}
+}
+
+/* SPARKLES */
+.sparkle{
+  position:fixed;
+  top:-20px;
+  font-size:18px;
+  animation:fall linear infinite;
+  opacity:0.9;
+}
+@keyframes fall{
+  from{transform:translateY(0);}
+  to{transform:translateY(110vh);}
+}
+
+.gif{
+  width:100%;
+  border-radius:18px;
+  margin-top:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- OPENING -->
+<div id="home">
+  <div class="teddy">🧸</div>
+  <div class="heart">❤️</div>
+  <p style="font-size:18px;">I have something cuddly for you…</p>
+  <button onclick="openPopup()">Open 💌</button>
+</div>
+
+<!-- POPUP WISH -->
+<div id="popup" class="hidden">
+  <div class="popup">
+    <div class="bounce">
+      Happyyy Teddy dayy myy teddy bearr ❤️🧸
+    </div>
+  </div>
+  <button onclick="goHug()">Next 🤍</button><br>
+  <button class="back" onclick="goHome()">← Back</button>
+</div>
+
+<!-- HUG MESSAGE -->
+<div id="hugPage" class="hidden">
+  <div class="hug">🧸🤗</div>
+
+  <div class="card">
+    You and your hugs feel exactly like a teddy bear hug —
+    warm, soft, and safe in the most comforting way.
+
+    <br><br>
+
+    Whenever I imagine being held by you,
+    it feels like the world slows down,
+    my worries disappear,
+    and my heart finds its favourite place to rest.
+
+    <br><br>
+
+    If I ever need comfort,
+    I know your arms would feel like home.
+    And that’s my favourite kind of feeling 🤍🧸
+
+    <br><br>
+
+    hehe lovee youu Boo boo bearrrrrr 😘🧸
+  </div>
+
+  <button onclick="goKiss()">One more 🧸💋</button><br>
+  <button class="back" onclick="goPopup()">← Back</button>
+</div>
+
+<!-- KISS GIF -->
+<div id="kissPage" class="hidden">
+  <img class="gif"
+    src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+    alt="teddy kiss gif">
+
+  <p style="font-size:16px;margin-top:10px;">
+    Sending you the softest teddy kisses 😘🧸
+  </p>
+
+  <button class="back" onclick="goHug()">← Back</button>
+</div>
+
+</div>
+
+<script>
+let sparkleInterval;
+
+function hideAll(){
+  document.querySelectorAll(".container > div")
+    .forEach(d=>d.classList.add("hidden"));
+  clearInterval(sparkleInterval);
+}
+
+function goHome(){
+  hideAll();
+  document.getElementById("home").classList.remove("hidden");
+}
+
+function openPopup(){
+  hideAll();
+  document.getElementById("popup").classList.remove("hidden");
+  startSparkles();
+}
+
+function goPopup(){
+  hideAll();
+  document.getElementById("popup").classList.remove("hidden");
+}
+
+function goHug(){
+  hideAll();
+  document.getElementById("hugPage").classList.remove("hidden");
+  startSparkles();
+}
+
+function goKiss(){
+  hideAll();
+  document.getElementById("kissPage").classList.remove("hidden");
+}
+
+function startSparkles(){
+  sparkleInterval=setInterval(()=>{
+    let s=document.createElement("div");
+    s.className="sparkle";
+    s.innerHTML=Math.random()>0.5?"💖":"✨";
+    s.style.left=Math.random()*100+"%";
+    s.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),9000);
+  },200);
+}
+</script>
+
+</body>
+</html>
